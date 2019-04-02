@@ -55,5 +55,21 @@ namespace ApiTest.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
             }
         }
+        [HttpGet("search")]
+        public async Task<ActionResult<List<CampModel>>> SearchByDate(DateTime theDate, bool includeTalks = false)
+        {
+            try
+            {
+                List<CampModel> campList = new List<CampModel>();
+
+                var tempResult = await _repository.GetAllCampsByEventDate(theDate, false);
+                var result = MapHelper.MapCampModels(tempResult);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
+            }
+        }
     }
 }
