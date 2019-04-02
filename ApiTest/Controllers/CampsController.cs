@@ -46,7 +46,7 @@ namespace ApiTest.Controllers
             }
             
         }
-        [HttpGet("{moniker")]
+        [HttpGet("{moniker}")]
         public async Task<ActionResult<CampModel>> Get(string moniker)
         {
             try
