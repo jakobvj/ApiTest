@@ -8,7 +8,7 @@ namespace ApiTest.Models
 {
     public static class MapHelper
     {
-        public static CampModel CreatedReturnMap(Camp camp)
+        public static CampModel ReturnMap(Camp camp)
         {
             CampModel cm = new CampModel
             {
@@ -18,6 +18,16 @@ namespace ApiTest.Models
                 EventDate = camp.EventDate
             };
             return cm;
+        }
+        public static Camp MapForPUT(Camp old, CampModel newCamp)
+        {
+            old.Name = newCamp.Name;
+            old.Moniker = newCamp.Moniker;
+            old.Length = newCamp.Length;
+            old.EventDate = newCamp.EventDate;
+
+            return old;
+            
         }
         public static CampModel MapCampModel(Camp camp)
         {

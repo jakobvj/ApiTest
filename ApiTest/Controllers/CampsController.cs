@@ -98,7 +98,7 @@ namespace ApiTest.Controllers
                 _repository.Add(result);
                 if (await _repository.SaveChangesAsync())
                 {
-                    return Created("$/api/camps/{camp.Moniker}", MapHelper.CreatedReturnMap(result));
+                    return Created("$/api/camps/{camp.Moniker}", MapHelper.ReturnMap(result));
                 }
             }
             catch (Exception e)
@@ -107,6 +107,52 @@ namespace ApiTest.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
             }
             return BadRequest();
+        }
+        [HttpPut("{moniker}")]
+        public async Task<ActionResult<CampModel>> Put(string moniker, CampModel model)
+        {
+            try
+            {
+                var oldCamp = await _repository.GetCampAsync(moniker);
+                if (oldCamp == null) return NotFound($"Could not find camp with moniker of {moniker}");
+
+                var result = MapHelper.MapForPUT(oldCamp, model);
+               
+                if (await _repository.SaveChangesAsync())
+                {
+                    return MapHelper.ReturnMap(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("{moniker}")]
+        public async Task<IActionResult> Delete(string moniker)
+        {
+            try
+            {
+                var oldCamp = await _repository.GetCampAsync(moniker);
+                if (oldCamp == null) return NotFound();
+
+                _repository.Delete(oldCamp);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest("Failed to delete the camp");
         }
     }
 }
