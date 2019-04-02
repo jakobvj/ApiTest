@@ -26,19 +26,8 @@ namespace ApiTest.Controllers
                 List<CampModel> campList = new List<CampModel>();
 
                 var tempResult = await _repository.GetAllCampsAsync();
-                foreach (var item in tempResult)
-                {
-                    CampModel cm = new CampModel
-                    {
-                        Name = item.Name,
-                        Moniker = item.Moniker,
-                        Length = item.Length,
-                        EventDate = item.EventDate
-                    };
-
-                    campList.Add(cm);
-                }
-                return Ok(campList);
+                var result = MapHelper.MapCampModels(tempResult);
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -58,14 +47,8 @@ namespace ApiTest.Controllers
                     return NotFound();
                 }
 
-                CampModel cm = new CampModel
-                {
-                    Name = tempResult.Name,
-                    Moniker = tempResult.Moniker,
-                    Length = tempResult.Length,
-                    EventDate = tempResult.EventDate
-                };
-                return cm;
+                var camp = MapHelper.MapCampModel(tempResult);
+                return camp;
             }
             catch (Exception)
             {
