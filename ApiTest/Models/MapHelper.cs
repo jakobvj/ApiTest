@@ -8,6 +8,17 @@ namespace ApiTest.Models
 {
     public static class MapHelper
     {
+        public static CampModel CreatedReturnMap(Camp camp)
+        {
+            CampModel cm = new CampModel
+            {
+                Name = camp.Name,
+                Moniker = camp.Moniker,
+                Length = camp.Length,
+                EventDate = camp.EventDate
+            };
+            return cm;
+        }
         public static CampModel MapCampModel(Camp camp)
         {
             CampModel cm = new CampModel
@@ -25,6 +36,26 @@ namespace ApiTest.Models
                 LocationPostalCode = camp.Location.PostalCode,
                 LocationStateProvince = camp.Location.StateProvince,
                 LocationVenueName = camp.Location.VenueName
+            };
+            return cm;
+        }
+        public static Camp MapCampModelBack(CampModel camp)
+        {
+            Camp cm = new Camp
+            {
+                Name = camp.Name,
+                Moniker = camp.Moniker,
+                Length = camp.Length,
+                EventDate = camp.EventDate,
+
+                //LocationAddress1 = camp.Location.Address1,
+                //LocationAddress2 = camp.Location.Address2,
+                //LocationAddress3 = camp.Location.Address3,
+                //LocationCityTown = camp.Location.CityTown,
+                //LocationCountry = camp.Location.Country,
+                //LocationPostalCode = camp.Location.PostalCode,
+                //LocationStateProvince = camp.Location.StateProvince,
+                //LocationVenueName = camp.Location.VenueName
             };
             return cm;
         }
