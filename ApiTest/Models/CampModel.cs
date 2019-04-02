@@ -21,5 +21,8 @@ namespace ApiTest.Models
         public string LocationStateProvince { get; set; }
         public string LocationPostalCode { get; set; }
         public string LocationCountry { get; set; }
+
+        // Talks
+        public ICollection<TalkModel> Talks { get; set; }
     }
 }

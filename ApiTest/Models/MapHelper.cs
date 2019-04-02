@@ -31,24 +31,39 @@ namespace ApiTest.Models
         public static List<CampModel> MapCampModels(Camp[] camp)
         {
             List<CampModel> campList = new List<CampModel>();
+            List<TalkModel> talkList = new List<TalkModel>();
             foreach (var item in camp)
             {
-                CampModel cm = new CampModel
+                CampModel cm = new CampModel();
+                if (item.Talks != null && item.Talks.Count >= 1)
                 {
-                    Name = item.Name,
-                    Moniker = item.Moniker,
-                    Length = item.Length,
-                    EventDate = item.EventDate,
+                    foreach (var talk in item.Talks)
+                    {
+                        TalkModel tm = new TalkModel();
+                        tm.Abstract = talk.Abstract;
+                        tm.Level = talk.Level;
+                        tm.Title = talk.Title;
 
-                    LocationAddress1 = item.Location.Address1,
-                    LocationAddress2 = item.Location.Address2,
-                    LocationAddress3 = item.Location.Address3,
-                    LocationCityTown = item.Location.CityTown,
-                    LocationCountry = item.Location.Country,
-                    LocationPostalCode = item.Location.PostalCode,
-                    LocationStateProvince = item.Location.StateProvince,
-                    LocationVenueName = item.Location.VenueName
-                };
+                        talkList.Add(tm);
+                    }
+                
+                    cm.Talks = talkList;
+                }
+                
+                cm.Name = item.Name;
+                cm.Moniker = item.Moniker;
+                cm.Length = item.Length;
+                cm.EventDate = item.EventDate;
+
+                cm.LocationAddress1 = item.Location.Address1;
+                cm.LocationAddress2 = item.Location.Address2;
+                cm.LocationAddress3 = item.Location.Address3;
+                cm.LocationCityTown = item.Location.CityTown;
+                cm.LocationCountry = item.Location.Country;
+                cm.LocationPostalCode = item.Location.PostalCode;
+                cm.LocationStateProvince = item.Location.StateProvince;
+                cm.LocationVenueName = item.Location.VenueName;
+                    
 
                 campList.Add(cm);
             }

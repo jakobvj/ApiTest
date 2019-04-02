@@ -19,13 +19,13 @@ namespace ApiTest.Controllers
             _repository = repository;
         }
         [HttpGet]
-        public async Task<ActionResult<List<CampModel>>> GetCamps()
+        public async Task<ActionResult<List<CampModel>>> Get(bool includeTalks = false)
         {
             try
             {
                 List<CampModel> campList = new List<CampModel>();
 
-                var tempResult = await _repository.GetAllCampsAsync();
+                var tempResult = await _repository.GetAllCampsAsync(includeTalks);
                 var result = MapHelper.MapCampModels(tempResult);
                 return Ok(result);
             }
