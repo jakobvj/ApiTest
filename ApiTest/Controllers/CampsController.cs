@@ -22,6 +22,11 @@ namespace ApiTest.Controllers
             _repository = repository;
             this.linkGenerator = linkGenerator;
         }
+        /// <summary>
+        /// Hent liste af alle camps
+        /// </summary>
+        /// <param name="includeTalks"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<List<CampModel>>> Get(bool includeTalks = false)
         {
@@ -75,6 +80,7 @@ namespace ApiTest.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
             }
         }
+        [HttpPost]
         public async Task<ActionResult<CampModel>> Post(CampModel model)
         {
             try
